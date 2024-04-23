@@ -663,12 +663,12 @@ class BoundedModule(nn.Module):
             nodesOut (list): List of output nodes
             template (object): Template to specify the output format
         """
-        global_input_cpu = self._to(global_input, 'cpu')
+        global_input_cpu = self._to(global_input, self.device)
         if self.ori_training:
             model.train()
         else:
             model.eval()
-        model.to('cpu')
+        model.to(self.device)
         nodesOP, nodesIn, nodesOut, template = parse_module(
             model, global_input_cpu)
         model.to(self.device)
